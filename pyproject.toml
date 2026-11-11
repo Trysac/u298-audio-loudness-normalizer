@@ -19,6 +19,9 @@ classifiers = [
 ]
 dependencies = []
 
+[project.scripts]
+audio-loudness-normalizer = "audio_loudness_normalizer.__main__:main"
+
 [project.urls]
 Homepage = "https://github.com/Trysac/u298-audio-loudness-normalizer"
 Source = "https://github.com/Trysac/u298-audio-loudness-normalizer"
