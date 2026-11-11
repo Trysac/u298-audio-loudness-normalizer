@@ -1,0 +1,16 @@
+# audio-loudness-normalizer
+
+> Measure integrated loudness per ITU-R BS.1770-4 with K-weighting and gating, then normalize PCM WAV audio to a LUFS target with a sample-peak ceiling, in pure Python Python package `trysac-audio-loudness-normalizer`, import name `audio_loudness_normalizer`, MIT licensed,
+> Python >= 3.10, no runtime dependencies.
+
+## Docs
+
+- [README](README.md): problem, install, usage example
+- [AGENTS](AGENTS.md): commands, folder map, conventions, limits
+- [Architecture](docs/ARCHITECTURE.md): shape of the package and its public API
+- [Testing](docs/TESTING.md): how to run and extend the tests
+
+## Optional
+
+- [Stack](docs/STACK.md): tools used and discarded
+- [Changelog](CHANGELOG.md): release history
