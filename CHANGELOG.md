@@ -9,4 +9,5 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- Added audio loudness measurement and normalization per ITU-R BS.1770-4 with K-weighting, gating, peak ceiling, WAV I/O, CLI, and comprehensive tests.
 - Initial project structure from the factory utility template.

@@ -3,27 +3,21 @@
 ## Running
 
 ```sh
-uv run pytest --cov=audio_loudness_normalizer   # tests with coverage report
-uv run python scripts/check.py      # every gate, as CI and the factory run it
+uv run pytest
 ```
+
+The tests use pytest and the standard library. The supplied tree contains two test files: `tests/test_audio_loudness_normalizer.py` and `tests/test_cli.py`.
 
 ## Policy
 
-- Branch coverage of `src/audio_loudness_normalizer` must stay at or above 80 %; the gate fails below it.
-- Tests exercise the public API (`import audio_loudness_normalizer`) and assert every observable effect:
-  return values, raised exceptions and their messages.
-- Each bug fix starts with a failing test that reproduces it.
-- Tests are deterministic: no network, no wall clock, no dependence on test order.
+The tests assert observable behavior: public exports, measured loudness, normalization gain and flags, written WAV data, printed CLI output, exit codes, and `LoudnessError` codes. CLI tests generate WAV data under pytest's `tmp_path` and capture output with `capsys`. The tests do not use network access.
 
 ## Tiers
 
-- Local tier (every gate run, coverage measured here): unit and property tests, plus conformance on small
-  fixtures kept in the repository.
-- CI tier: conformance that needs an external tool or a download. Mark them `@pytest.mark.conformance`; `scripts/check.py` deselects them locally
-  (unless `FABRICA_CI=1`). The CI `conformance` job sets `FABRICA_CI=1` and runs the full suite. Tools are installed
-  by the optional `ci/conformance-setup.sh` (bash, CI only; verify every download against a pinned SHA-256), and
-  tagged tests skip cleanly when their tool is missing.
+There is one local pytest suite. The supplied repository does not contain conformance markers, external-tool setup scripts, or a separate CI-only test tier.
 
 ## Layout
 
-`tests/test_<module>.py` mirrors each public module. Shared fixtures go in `tests/conftest.py`.
+- `tests/test_audio_loudness_normalizer.py` contains `test_public_api_exports`, `test_normalize_round_trip`, and `test_version_is_semver`. It checks the exported names, normalization and WAV round-trip behavior, and the semantic version string.
+- `tests/test_cli.py` contains `test_main_measure`, `test_main_normalizer`, `test_main_missing_file`, `test_main_silent_input`, `test_main_too_short`, and `test_main_unsupported_format`, with a `_make_wav` helper. It checks CLI measurement output, normalization and output writing, missing-file handling, silent input, too-short input, and unsupported format handling.
+- No `tests/conftest.py` is present in the supplied tree.
